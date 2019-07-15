@@ -39,8 +39,9 @@ router.put("/:id", async (req, res) => {
       if (!req.body.name || !req.body.budget) {
         res.status(500).json({ message: "Name and budget requierd" });
       } else {
-        const updatedAccount = await Accounts.getAccountById(req.params.id);
-        const target = await Accounts.updateAccountById(updatedAccount, {name,budget});
+        await Accounts.getAccountById(req.params.id);
+        const target = await Accounts.updateAccountById(req.params.id, {name,budget});
+        
         res.status(200).json(target);
       }
     } catch (error) {
